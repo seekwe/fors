@@ -18,12 +18,12 @@ return false 说明手动调用下一个方法，第一个参数为下一个方�
             }, 2000);
             return false; //return false 说明手动调用下一个方法，第一个参数为下一个方法，其他是带过来的参数
         }, function (next, text, s) {
-
+        
             console.log(next);
             console.log(text);
             console.log(s);
             console.log(4);
-
+        
         }, function (next) {
             console.log(5);
         }, function (next) {
@@ -32,5 +32,5 @@ return false 说明手动调用下一个方法，第一个参数为下一个方�
             console.log(7);
         }, function (next) {
             console.log(8);
-        });
+});
 </pre>
