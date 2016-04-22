@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>fors</title>
+    <script src="fors.js"></script>
+    <script>
+        fors(function () {
+            console.log(1);
+        }, function () {
+            console.log(2);
+        }, function (next) {
+            console.log('------');
+            setTimeout(function () {
+                console.log(3);
+                next('参数传递', '又一个参数');
+            }, 2000);
+            return false; //return false 说明手动调用下一个方法，第一个参数为下一个方法，其他是带过来的参数
+        }, function (next, text, s) {
+            console.log(next);
+            console.log(text);
+            console.log(s);
+            console.log(4);
+        }, function () {
+            console.log(5);
+        }, function () {
+            console.log(6);
+        }, function () {
+            console.log(7);
+        }, function () {
+            console.log(8);
+        });
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
