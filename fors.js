@@ -19,7 +19,17 @@
     var list = arguments;
     var i = 0;
     var query = []; //临时保存参数
+
     fors();
+    return (function () { //将有名字的方法，return出去
+        var obj = {};
+        for (var i = 0; i < list.length; i++) {
+            if (/^.+$/.test(list[i].name)) {
+                obj[list[i].name] = list[i];
+            }
+        }
+        return obj;
+    })();
 
     function fors() {
         for (i; i < list.length; i++) {

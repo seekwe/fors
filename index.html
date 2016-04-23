@@ -6,7 +6,7 @@
     <title>fors</title>
     <script src="fors.js"></script>
     <script>
-        fors(function (next) {
+        var obj = fors(function gogo(next) {
             console.log(1);
         }, function () {
             console.log(2);
@@ -34,13 +34,7 @@
             console.log(8);
         });
 
-        fors(function (next) {
-            $.get("demo_test.asp", function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-            });
-        }, function (next, data, status) {
-            //ajax请求回来的数据
-        });
+        console.log(obj); //看看控制台会打印出来什么
     </script>
 </head>
 
