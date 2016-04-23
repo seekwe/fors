@@ -13,7 +13,8 @@
 
 在2016-04-23号下午七点之前的，请重新下载测试。
 
-
+百度云演示视频下载：http://pan.baidu.com/s/1hrMjnzm
+演示视频在线观看地址：http://pan.baidu.com/share/link?shareid=683625544&uk=2469628767&fid=863221698786478
 
 欢迎star！
 return false 说明手动调用下一个方法，第一个参数为下一个方法，其他是带过来的参数
