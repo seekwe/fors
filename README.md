@@ -19,8 +19,8 @@ nodejs读取文件例子：
 var fs = require('fs');
 var fors = require('./fors');
 
-fors(
-    function (next) {
+var obj = fors(
+    function start(next) {
         fs.readFile('./file/1.txt', 'utf-8', next);
         return false; //return false; 暂停执行下一个，等待触发next函数
     },
@@ -77,4 +77,6 @@ fors(
         }
     }
 );
+
+console.log(obj); //在控制台上看看会打印出来什么
 </pre>
