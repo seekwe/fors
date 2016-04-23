@@ -5,63 +5,54 @@
 var fs = require('fs');
 var fors = require('./fors');
 
-var obj = fors(
-    function start(next) {
-        fs.readFile('./file/1.txt', 'utf-8', next);
-        return false; //return false; 暂停执行下一个，等待触发next函数
+console.log('********异步执行**********');
+var getFile = fors(
+    function () {
+        console.log('同步执行');
     },
-    function (next, err, data) {
+    function getTxt1(next) {
+        console.log('看看我先，还是return的方法先出来');
+        fs.readFile('./file/1.txt', 'utf-8', next);
+        return false; //暂停自动执行下一个方法，等待next方法触发，继续执行下一个方法
+    },
+    function getTxt2(next, err, data) {
         if (err) {
             console.log(err);
         } else {
-            console.log(data);
+            console.log('读取的内容是：' + data);
             fs.readFile('./file/2.txt', 'utf-8', next);
         }
-        return false; //return false; 暂停执行下一个，等待触发next函数
+        return false;
     },
-    function (next, err, data) {
+    function getTxt3(next, err, data) {
         if (err) {
             console.log(err);
         } else {
-            console.log(data);
+            console.log('读取的内容是：' + data);
             fs.readFile('./file/3.txt', 'utf-8', next);
         }
-        return false; //return false; 暂停执行下一个，等待触发next函数
+        return false;
     },
-    function (next, err, data) {
+    function getTxt4(next, err, data) {
         if (err) {
             console.log(err);
         } else {
-            console.log(data);
+            console.log('读取的内容是：' + data);
             fs.readFile('./file/4.txt', 'utf-8', next);
         }
-        return false; //return false; 暂停执行下一个，等待触发next函数
+        return false;
     },
     function (next, err, data) {
         if (err) {
             console.log(err);
         } else {
-            console.log(data);
-            fs.readFile('./file/5.txt', 'utf-8', next);
-        }
-        return false; //return false; 暂停执行下一个，等待触发next函数
-    },
-    function (next, err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(data);
-            fs.readFile('./file/6.txt', 'utf-8', next);
-        }
-        return false; //return false; 暂停执行下一个，等待触发next函数
-    },
-    function (next, err, data) {
-        if (err) {
-            console.log(err); //6.txt文件是不存在的，到这里，应该是执行错误
-        } else {
-            console.log(data);
+            console.log('读取的内容是：' + data);
+            console.log('异步读取文件完成！');
         }
     }
 );
 
-console.log(obj); //在控制台上看看会打印出来什么
+
+getFile.getTxt2(function (err, data) {
+    console.log('看看文本二的内容是：' + data);
+}, null, '我是从外面进来的');

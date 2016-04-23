@@ -19,27 +19,41 @@
     var list = arguments;
     var i = 0;
     var query = []; //临时保存参数
-
-    fors();
-    return (function () { //将有名字的方法，return出去
+    var resMethod = (function () { //保存有名字的方法，会return 出去
         var obj = {};
         for (var i = 0; i < list.length; i++) {
             if (/^.+$/.test(list[i].name)) {
-                obj[list[i].name] = list[i];
+                obj[list[i].name] = (function (fn) {
+                    return function () {
+                        return fn.apply(this, Array.prototype.slice.call(arguments)); //参数替换
+                    };
+                })(list[i]);
             }
         }
         return obj;
     })();
+    fors();
+    return resMethod;
 
     function fors() {
         for (i; i < list.length; i++) {
-            if (cur(list[i]) === false) {
+            var cur = (function (fn) {
+                if (typeof fn === 'function') {
+                    return fn;
+                } else if (typeof fn === 'string') {
+                    return resMethod[fn] || function () {};
+                } else {
+                    return function () {};
+                }
+            })(list[i]);
+
+            if (callCur(cur) === false) {
                 break; //异步执行，等待手动执行下一个方法
             }
         }
     }
 
-    function cur(fn) {
+    function callCur(fn) {
         var next = [function () {
             i++;
             query = Array.prototype.slice.call(arguments);
