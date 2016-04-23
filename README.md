@@ -5,6 +5,12 @@
 欢迎start！
 return false 说明手动调用下一个方法，第一个参数为下一个方法，其他是带过来的参数
 
+nodejs读取文件例子：
+<pre>
+        node file
+</pre>
+
+简单举例子：
 <pre>
         fors(function (next) {
             console.log(1);
