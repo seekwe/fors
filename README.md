@@ -7,7 +7,7 @@ return false 说明手动调用下一个方法，第一个参数为下一个方�
 
 nodejs读取文件例子：
 <pre>
-        node file
+        node test
 </pre>
 
 简单举例子：
