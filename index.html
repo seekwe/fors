@@ -33,6 +33,14 @@
         }, function (next) {
             console.log(8);
         });
+
+        fors(function (next) {
+            $.get("demo_test.asp", function (data, status) {
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+        }, function (next, data, status) {
+            //ajax请求回来的数据
+        });
     </script>
 </head>
 
