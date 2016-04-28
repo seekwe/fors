@@ -139,13 +139,13 @@ fors(
 
 浏览器端事件绑定例子(bindEvent.html)：
 <pre>
-<!DOCTYPE html>
-<html lang="en">
+&lt;!DOCTYPE html&gt
+&lt;html lang="en"&gt
 
-<head>
-    <meta charset="UTF-8">
-    <title>事件绑定</title>
-    <style type="text/css">
+&lt;head&gt
+    &lt;meta charset="UTF-8"&gt
+    &lt;title&gt事件绑定&lt;/title&gt
+    &lt;style type="text/css"&gt
         * {
             padding: 0;
             margin: 0;
@@ -169,9 +169,9 @@ fors(
             transition: all 1s;
             cursor: pointer
         }
-    </style>
-    <script src="fors.js"></script>
-    <script>
+    &lt;/style&gt
+    &lt;script src="fors.js"&gt&lt;/script&gt
+    &lt;script&gt
         var li = null; //保存选中的
 
 
@@ -195,7 +195,7 @@ fors(
                  * 重置
                  */
                 function reset() {
-                    for (var i = 0; i < li.length; i++) {
+                    for (var i = 0; i &lt; li.length; i++) {
                         li[i].innerHTML = li[i].dataset.html;
                         li[i].style.background = 'red';
                     }
@@ -222,7 +222,7 @@ fors(
                  * @returns {boolean}  结束本次fors执行
                  */
                 function bind(next) {
-                    for (var i = 0; i < li.length; i++) {
+                    for (var i = 0; i &lt; li.length; i++) {
                         li[i].dataset.html = li[i].innerHTML;
                         li[i].addEventListener('mouseover', forsMouseover.start, false);
                         li[i].addEventListener('click', forsClick.start, false);
@@ -232,18 +232,19 @@ fors(
             );
 
         }, false);
-    </script>
-</head>
+    &lt;/script&gt
+&lt;/head&gt
 
-<body>
-    <ul class="box">
-        <li>我是第一行</li>
-        <li>我是第三行</li>
-        <li>我是第四行</li>
-        <li>我是第五行</li>
-    </ul>
+&lt;body&gt
+   
+    &lt;ul class="box"&gt
+        &lt;li&gt我是第一行&lt;/li&gt
+        &lt;li&gt我是第三行&lt;/li&gt
+        &lt;li&gt我是第四行&lt;/li&gt
+        &lt;li&gt我是第五行&lt;/li&gt
+    &lt;/ul&gt
 
-</body>
+&lt;/body&gt
 
-</html>
+&lt;/html&gt
 </pre>
