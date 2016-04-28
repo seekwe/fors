@@ -24,7 +24,7 @@ nodejs读取文件例子：
         node test
 </pre>
 
-简单举例子：
+nodeJS例子(file.js)：
 <pre>
 var fors = require('./fors');
 var fs = require('fs');
@@ -135,4 +135,115 @@ fors(
         console.log('2.txt的内容是：' + data);
     }
 );
+</pre>
+
+浏览器端事件绑定例子(bindEvent.html)：
+<pre>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>事件绑定</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        body {
+            width: 640px;
+            margin: 0 auto;
+        }
+        
+        li {
+            margin: 10px;
+            line-height: 38px;
+            text-align: center;
+            color: #fff;
+            background: red;
+            -moz-transition: all 1s;
+            -webkit-transition: all 1s;
+            -o-transition: all 1s;
+            transition: all 1s;
+            cursor: pointer
+        }
+    </style>
+    <script src="fors.js"></script>
+    <script>
+        var li = null; //保存选中的
+
+
+        window.addEventListener('load', function () {
+            var li = document.querySelectorAll('.box li');
+
+
+            var forsClick = fors( //保存鼠标点击的fors执行
+                false, //第一个参数为false，不会立即执行，会返回一个对象，调用对象的start()方法开始执行
+                function () {
+                    alert(this.dataset.html);
+                },
+                function () {
+                    alert('fors第一个参数设置为false，不会立即执行，会return一个start方法，供你在其他地方调用');
+                }
+            );
+
+            var forsMouseover = fors( //保存鼠标划过的fors执行
+                false, //第一个参数为false，不会立即执行，会返回一个对象，调用对象的start()方法开始执行
+                /**
+                 * 重置
+                 */
+                function reset() {
+                    for (var i = 0; i < li.length; i++) {
+                        li[i].innerHTML = li[i].dataset.html;
+                        li[i].style.background = 'red';
+                    }
+                },
+                /**
+                 * 设置背景颜色
+                 * @param {[[Type]]} next 执行下面的fors代码
+                 */
+                function setBg(next) {
+                    this.style.background = '#222';
+                },
+                /**
+                 * 设置html
+                 */
+                function setHtml() {
+                    this.innerHTML = '你点击我看看';
+                }
+            );
+
+            fors(
+                /**
+                 * 绑定事件
+                 * @param   {function} next 执行下面的fors代码
+                 * @returns {boolean}  结束本次fors执行
+                 */
+                function bind(next) {
+                    for (var i = 0; i < li.length; i++) {
+                        li[i].dataset.html = li[i].innerHTML;
+                        li[i].addEventListener('mouseover', forsMouseover.start, false);
+                        li[i].addEventListener('click', forsClick.start, false);
+                    }
+                    return false; //结束同步执行
+                }
+            );
+
+        }, false);
+    </script>
+</head>
+
+<body>
+    <ul class="box">
+        <li>我是第一行</li>
+        <li>我是第三行</li>
+        <li>我是第四行</li>
+        <li>我是第五行</li>
+    </ul>
+
+</body>
+
+</html>
 </pre>
