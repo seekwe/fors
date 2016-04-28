@@ -1,6 +1,6 @@
 /*
     version: 1.1.0
-    date: 2016-04-22
+    date: 2016-04-28
     author: 狼族小狈
     github：https://github.com/1340641314/fors
 */
