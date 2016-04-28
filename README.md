@@ -1,7 +1,7 @@
 # fors
 <h3>轻量级的js，代码不足百行，让异步如for循环般执行</h3>
 
-正式版本发布了，
+1.1.0版本发布了，
 1.支持方法重复调用
 2.支持返回有名方法
 
@@ -11,7 +11,7 @@
 
 支持在浏览器环境下和nodejs环境下使用。
 
-在2016-04-23号下午七点之前的，请重新下载测试。
+在2016-04-29号之前的，请重新下载测试。
 
 百度云演示视频下载：http://pan.baidu.com/s/1hrMjnzm <br>
 演示视频在线观看地址：http://pan.baidu.com/share/link?shareid=683625544&uk=2469628767&fid=863221698786478
@@ -24,7 +24,7 @@ nodejs读取文件例子：
         node test
 </pre>
 
-简单举例子：
+nodeJS例子(file.js)：
 <pre>
 var fors = require('./fors');
 var fs = require('fs');
@@ -135,4 +135,114 @@ fors(
         console.log('2.txt的内容是：' + data);
     }
 );
+</pre>
+
+浏览器端事件绑定例子(bindEvent.html)：
+<pre>
+&lt;!DOCTYPE html&gt
+&lt;html lang="en"&gt
+
+&lt;head&gt
+    &lt;meta charset="UTF-8"&gt
+    &lt;title&gt事件绑定&lt;/title&gt
+    &lt;style type="text/css"&gt
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        body {
+            width: 640px;
+            margin: 0 auto;
+        }
+        
+        li {
+            margin: 10px;
+            line-height: 38px;
+            text-align: center;
+            color: #fff;
+            background: red;
+            -moz-transition: all 1s;
+            -webkit-transition: all 1s;
+            -o-transition: all 1s;
+            transition: all 1s;
+            cursor: pointer
+        }
+    &lt;/style&gt
+    &lt;script src="fors.js"&gt&lt;/script&gt
+    &lt;script&gt
+
+        window.addEventListener('load', function () {
+            var li = document.querySelectorAll('.box li');
+
+
+            var forsClick = fors( //保存鼠标点击的fors执行
+                false, //第一个参数为false，不会立即执行，会返回一个对象，调用对象的start()方法开始执行
+                function () {
+                    alert(this.dataset.html);
+                },
+                function () {
+                    alert('fors第一个参数设置为false，不会立即执行，会return一个start方法，供你在其他地方调用');
+                }
+            );
+
+            var forsMouseover = fors( //保存鼠标划过的fors执行
+                false, //第一个参数为false，不会立即执行，会返回一个对象，调用对象的start()方法开始执行
+                /**
+                 * 重置
+                 */
+                function reset() {
+                    for (var i = 0; i &lt; li.length; i++) {
+                        li[i].innerHTML = li[i].dataset.html;
+                        li[i].style.background = 'red';
+                    }
+                },
+                /**
+                 * 设置背景颜色
+                 * @param {[[Type]]} next 执行下面的fors代码
+                 */
+                function setBg(next) {
+                    this.style.background = '#222';
+                },
+                /**
+                 * 设置html
+                 */
+                function setHtml() {
+                    this.innerHTML = '你点击我看看';
+                }
+            );
+
+            fors(
+                /**
+                 * 绑定事件
+                 * @param   {function} next 执行下面的fors代码
+                 * @returns {boolean}  结束本次fors执行
+                 */
+                function bind(next) {
+                    for (var i = 0; i &lt; li.length; i++) {
+                        li[i].dataset.html = li[i].innerHTML;
+                        li[i].addEventListener('mouseover', forsMouseover.start, false);
+                        li[i].addEventListener('click', forsClick.start, false);
+                    }
+                    return false; //结束同步执行
+                }
+            );
+
+        }, false);
+    &lt;/script&gt
+&lt;/head&gt
+
+&lt;body&gt
+   
+    &lt;ul class="box"&gt
+        &lt;li&gt我是第一行&lt;/li&gt
+        &lt;li&gt我是第三行&lt;/li&gt
+        &lt;li&gt我是第四行&lt;/li&gt
+        &lt;li&gt我是第五行&lt;/li&gt
+    &lt;/ul&gt
+
+&lt;/body&gt
+
+&lt;/html&gt
 </pre>
