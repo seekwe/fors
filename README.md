@@ -172,8 +172,6 @@ fors(
     &lt;/style&gt
     &lt;script src="fors.js"&gt&lt;/script&gt
     &lt;script&gt
-        var li = null; //保存选中的
-
 
         window.addEventListener('load', function () {
             var li = document.querySelectorAll('.box li');
